@@ -177,8 +177,39 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
     })
 
-    it.only('envia o formuário com sucesso usando um comando customizado', function(){
+    it('envia o formuário com sucesso usando um comando customizado', function(){
         cy.fillMandatoryFieldsAndSubmit()
+    })
+
+    it('seleciona um produto (YouTube) por seu texto', function() {
+        cy.get('select').select('YouTube') // Seleção pelo texto Youtube
+        .should('have.value', 'youtube')
+    })
+
+    it('seleciona um produto (Mentoria) por seu valor (value)', function() {
+        cy.get('select').select('mentoria') // Seleção pelo value mentoria
+        .should('have.value', 'mentoria')
+    })
+
+    it('seleciona um produto (Blog) por seu índice', function() {
+        cy.get('select').select(1) // Seleção pelo value mentoria
+        .should('have.value', 'blog')
+    })
+
+    it('marca o tipo de atendimento "Feedback"', function() {
+        cy.get('input[value="feedback"]')
+            .check()
+            .should('have.value', 'feedback')
+    })
+
+    it.only('marca cada tipo de atendimento', function() {
+        cy.get('input[type="radio"]')
+            .should('have.length', 3)
+            .each(function($radio) { //.each encapsula cada um dos $radio para executar comandos específicos para cada iteração
+                cy.wrap($radio).check() //.wrap enpacota cada opção para que possa executar os comandos passados
+                cy.wrap($radio).should('be.checked')
+            })
+            
     })
 
   })
