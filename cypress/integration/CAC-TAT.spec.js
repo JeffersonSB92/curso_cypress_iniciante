@@ -113,7 +113,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         //acha o checkbox de telefone, checa se está visível, clica no checkbox
         cy.get('input[id="phone-checkbox"]')
             .should('be.visible')
-            .click()
+            .check()
 
         //acha o campo de input de "como podemos ajudar", checa se está visível, preenche o campo e checa se tem o valor preenchido anteriormente
         cy.get('#open-text-area')
@@ -202,7 +202,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', 'feedback')
     })
 
-    it.only('marca cada tipo de atendimento', function() {
+    it('marca cada tipo de atendimento', function() {
         cy.get('input[type="radio"]')
             .should('have.length', 3)
             .each(function($radio) { //.each encapsula cada um dos $radio para executar comandos específicos para cada iteração
@@ -210,6 +210,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
                 cy.wrap($radio).should('be.checked')
             })
             
+    })
+
+    it('marca ambos checkboxes, depois desmarca o último', function() {
+        cy.get('#check input[type="checkbox"]')
+            .check().should('be.checked')
+            .last().uncheck()
+            .last().should('not.be.checked')
     })
 
   })
