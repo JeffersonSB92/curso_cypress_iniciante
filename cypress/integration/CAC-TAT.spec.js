@@ -244,5 +244,28 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             })
     })
 
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', function() {
+        cy.get('#privacy a')
+            .should('have.attr', 'target', '_blank')
+    })
+
+    it('acessa a página da política de privacidade removendo o target e então clicando no link', function() {
+        cy.get('#privacy a')
+            .invoke('removeAttr', 'target')
+            .click()
+    })
+
+    it.only('acessa a página da política de privacidade removendo o target e então clicando no link', function() {
+        cy.get('#privacy a')
+            .invoke('removeAttr', 'target')
+            .click()
+    })
+    /*foi criado um arquivo novo (privacy.spec.js) para testar de forma independente
+    o link da página com a política de privacidade, ele roda isoladamente e dessa forma
+    conseguimos fazer todos os testes necessários, visto que o Cypress não consegue lidar
+    com acesso a outras abas. essa forma funciona apenas se a página que iremos testar
+    estiver no mesmo domínio que a página principal, ou seja, dentro do mesmo projeto*/
+
+
 
   })
