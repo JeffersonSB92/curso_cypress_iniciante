@@ -11,7 +11,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it.only('preenche os campos obrigatórios e envia o formulário', function() {
+    it('preenche os campos obrigatórios e envia o formulário', function() {
         //acha o campo de input de nome, checa se está visível, preenche o campo e checa se tem o valor preenchido anteriormente
         cy.get('#firstName')
             .should('be.visible')
@@ -303,5 +303,21 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('.success').should('not.be.visible')
     })
 
+    it("exibe e esconde as mensagens de sucesso e erro usando o .invoke()", function() {
+        cy.get('.success')
+            .should('not.be.visible')
+            .invoke('show')
+            .should('be.visible')
+            .and('contain', 'Mensagem enviada com sucesso.')
+            .invoke('hide')
+            .should('not.be.visible')
+        cy.get('.error')
+            .should('not.be.visible')
+            .invoke('show')
+            .should('be.visible')
+            .and('contain', 'Valide os campos obrigatórios!')
+            .invoke('hide')
+            .should('not.be.visible')
+    })
 
   })
