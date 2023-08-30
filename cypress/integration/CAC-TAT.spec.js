@@ -11,7 +11,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it('preenche os campos obrigatórios e envia o formulário', function() {
+    it.only('preenche os campos obrigatórios e envia o formulário', function() {
         //acha o campo de input de nome, checa se está visível, preenche o campo e checa se tem o valor preenchido anteriormente
         cy.get('#firstName')
             .should('be.visible')
@@ -35,7 +35,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#open-text-area')
             .should('be.visible')
             //adicionada a option {delay} para preencher texto longo mais rápido
-            .type(longText, {delay: 0})
+            .invoke('val', longText)
             .should('have.value', longText)
 
         //acha o botão de enviar, checa se ele está visível e clica nele
