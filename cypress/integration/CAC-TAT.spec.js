@@ -31,11 +31,12 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', 'jefftavares92@gmail.com')
 
         //acha o campo de input de "como podemos ajudar", checa se está visível, preenche o campo e checa se tem o valor preenchido anteriormente
+        const longText = Cypress._.repeat('abcd', 50)
         cy.get('#open-text-area')
             .should('be.visible')
             //adicionada a option {delay} para preencher texto longo mais rápido
-            .type('Lorem ipsum dolor sit amet. Quo pariatur dolores nam itaque dolores aut enim numquam et quas esse rem unde explicabo et galisum dolores. Qui illo culpa quo itaque voluptas qui quibusdam officiis. Et consequatur nulla qui dolore dolor est alias magnam aut dolores nemo. Eos minima illum ab magnam eius et dolorem unde sit consequatur nostrum et consectetur modi. Sit neque delectus nam porro natus qui nisi voluptas. Id accusantium culpa et sunt accusantium aut placeat tempora sit porro provident cum enim recusandae eos repudiandae aspernatur', {delay: 0})
-            .should('have.value', 'Lorem ipsum dolor sit amet. Quo pariatur dolores nam itaque dolores aut enim numquam et quas esse rem unde explicabo et galisum dolores. Qui illo culpa quo itaque voluptas qui quibusdam officiis. Et consequatur nulla qui dolore dolor est alias magnam aut dolores nemo. Eos minima illum ab magnam eius et dolorem unde sit consequatur nostrum et consectetur modi. Sit neque delectus nam porro natus qui nisi voluptas. Id accusantium culpa et sunt accusantium aut placeat tempora sit porro provident cum enim recusandae eos repudiandae aspernatur')
+            .type(longText, {delay: 0})
+            .should('have.value', longText)
 
         //acha o botão de enviar, checa se ele está visível e clica nele
         cy.get('button[type="submit"]')
@@ -83,12 +84,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
     })
 
-    it('falha ao tentar digitar telefone não numérico', function() {
-        //acha o campo de input de telefone, checa se está visível, tenta preencher o campo com não numérico e checa que continua vazio
-        cy.get('#phone')
-            .should('be.visible')
-            .type('Jefferson')
-            .should('have.value', '')
+    Cypress._.times(5, () => {
+        it('falha ao tentar digitar telefone não numérico', function() {
+            //acha o campo de input de telefone, checa se está visível, tenta preencher o campo com não numérico e checa que continua vazio
+            cy.get('#phone')
+                .should('be.visible')
+                .type('Jefferson')
+                .should('have.value', '')
+        })
     })
 
     it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
