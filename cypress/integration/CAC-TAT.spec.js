@@ -320,4 +320,21 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('not.be.visible')
     })
 
+    it("faz uma requisição HTTP", function() {
+        cy.request({
+            metodh: 'GET',
+            url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html'
+        }).then((response) => {
+            expect(response.status).to.equal(200);
+            expect(response.statusText).to.equal('OK');
+            expect(response.body).to.contain('CAC TAT');
+        })
+    })
+
+
+
+
+
+
+
   })
