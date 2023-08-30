@@ -320,7 +320,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('not.be.visible')
     })
 
-    it("faz uma requisição HTTP", function() {
+    it.only("faz uma requisição HTTP", function() {
+        /*
+        Minha abordagem para o exercício
         cy.request({
             metodh: 'GET',
             url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html'
@@ -328,7 +330,16 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             expect(response.status).to.equal(200);
             expect(response.statusText).to.equal('OK');
             expect(response.body).to.contain('CAC TAT');
-        })
+        })*/
+
+        //abordagem do professor
+       cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+        .should(function(response) {
+            const { status, statusText, body } = response //aqui desestruturamos a resposta, estamos pegando do response apenas status, statusText e body
+            expect(status).to.equal(200)
+            expect(statusText).to.equal('OK')
+            expect(body).to.include('CAC TAT')
+        }) 
     })
 
 
