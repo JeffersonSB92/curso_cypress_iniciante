@@ -266,6 +266,39 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     com acesso a outras abas. essa forma funciona apenas se a página que iremos testar
     estiver no mesmo domínio que a página principal, ou seja, dentro do mesmo projeto*/
 
+    it("verifica mensagem usando .clock e .tick", function() {
+        cy.get('#firstName')
+        .should('be.visible')
+        .type('Jefferson')
+        .should('have.value', 'Jefferson')
+
+    cy.get('#lastName')
+        .should('be.visible')
+        .type('Borges')
+        .should('have.value', 'Borges')
+
+    cy.get('#email')
+        .should('be.visible')
+        .type('jefftavares92@gmail.com')
+        .should('have.value', 'jefftavares92@gmail.com')
+
+    cy.get('#open-text-area')
+        .should('be.visible')
+        .type('Lorem ipsum dolor sit amet. Quo pariatur dolores nam itaque dolores aut enim numquam et quas esse rem unde explicabo et galisum dolores. Qui illo culpa quo itaque voluptas qui quibusdam officiis. Et consequatur nulla qui dolore dolor est alias magnam aut dolores nemo. Eos minima illum ab magnam eius et dolorem unde sit consequatur nostrum et consectetur modi. Sit neque delectus nam porro natus qui nisi voluptas. Id accusantium culpa et sunt accusantium aut placeat tempora sit porro provident cum enim recusandae eos repudiandae aspernatur', {delay: 0})
+        .should('have.value', 'Lorem ipsum dolor sit amet. Quo pariatur dolores nam itaque dolores aut enim numquam et quas esse rem unde explicabo et galisum dolores. Qui illo culpa quo itaque voluptas qui quibusdam officiis. Et consequatur nulla qui dolore dolor est alias magnam aut dolores nemo. Eos minima illum ab magnam eius et dolorem unde sit consequatur nostrum et consectetur modi. Sit neque delectus nam porro natus qui nisi voluptas. Id accusantium culpa et sunt accusantium aut placeat tempora sit porro provident cum enim recusandae eos repudiandae aspernatur')
+
+    cy.clock()
+
+    cy.get('button[type="submit"]')
+        .should('be.visible')
+        .click()
+
+    cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
+    })
 
 
   })
